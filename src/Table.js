@@ -8,7 +8,7 @@ import pl from "date-fns/locale/pl";
 registerLocale("pl", pl);
 
 function Table({ columns, data, getPickedDateRatesData }) {
-	const [date, setDate] = useState(null);
+	const [userDate, setUserDate] = useState(null);
 	const {
 		getTableProps,
 		getTableBodyProps,
@@ -36,7 +36,7 @@ function Table({ columns, data, getPickedDateRatesData }) {
 	return (
 		<>
 			<DatePicker
-				selected={date}
+				selected={userDate}
 				locale="pl"
 				onChange={getPickedDateRatesData}
 			/>
