@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTable, usePagination, useSortBy } from "react-table";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { registerLocale } from "react-datepicker";
+import pl from "date-fns/locale/pl";
 
-export default function Table({ columns, data }) {
+registerLocale("pl", pl);
+
+function Table({ columns, data, getPickedDateRatesData }) {
+	const [date, setDate] = useState(null);
 	const {
 		getTableProps,
 		getTableBodyProps,
@@ -28,6 +35,11 @@ export default function Table({ columns, data }) {
 
 	return (
 		<>
+			<DatePicker
+				selected={date}
+				locale="pl"
+				onChange={getPickedDateRatesData}
+			/>
 			<table {...getTableProps()}>
 				<thead>
 					{headerGroups.map((headerGroup) => (
@@ -70,8 +82,8 @@ export default function Table({ columns, data }) {
 			</table>
 			<div>
 				<span>
-					Showing {pageIndex * pageSize + 1} to{" "}
-					{pageIndex * pageSize + 10} of {rows.length} entries{" "}
+					Wyświetlam wpisy {pageIndex * pageSize + 1}-
+					{pageIndex * pageSize + 10} z {rows.length}{" "}
 				</span>
 				<button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
 					{"<<"}
@@ -107,3 +119,5 @@ export default function Table({ columns, data }) {
 		</>
 	);
 }
+
+export default Table;
